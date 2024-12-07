@@ -40,26 +40,18 @@ class Node:
 
     
     def __eq__(self, other: "Node") -> bool:
-        return self.position == other.position
+        if other == None:
+            return False
+        if self.get_position() == other.get_position():
+            return True
+        else:
+            return False
+
 
     def __hash__(self) -> int:
         return hash(self.position)
     
-    def dfs_path(self, dest_node : "Node", path : List["Node"] = [], all_paths : List[List["Node"]] = [[]], visited : List["Node"] = []) -> List[List["Node"]]:
-        path.append(self)
-        if self == dest_node:
-            all_paths.append(path[:])
-        else:
-            for neighbor in [self.up_node, self.right_node, self.down_node, self.left_node]:
-                if neighbor:
-                    if neighbor not in visited:
-                        if neighbor not in path:
-                            neighbor.dfs_path(dest_node, path, all_paths, visited=visited)
-                        else:             
-                            for i in range(path.index(neighbor), len(path)):
-                                visited.append(path[i])
-        path.pop()
-        return all_paths
+                
 
     def __str__(self) -> str: 
         output_str : str = ''
@@ -73,12 +65,18 @@ class Node:
     def disconnect(self):
         if self.up_node:
             self.up_node.set_down_node(None)
+            self.up_node = None
         if self.right_node:
             self.right_node.set_left_node(None)
+            self.right_node = None
         if self.down_node:
             self.down_node.set_up_node(None)
+            self.down_node = None
         if self.left_node:
             self.left_node.set_right_node(None)
+            self.left_node = None
+
+        
 
 
     def get_position(self) -> Position:

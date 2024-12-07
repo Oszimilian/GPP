@@ -55,12 +55,11 @@ class Position:
         return angle
     
     def __eq__(self, position : "Position"):
-        
-        if (position.get_x() - self.x) > self.epsilon:
+        if abs(position.get_x() - self.x) > self.epsilon:
             return False
-        if (position.get_y() - self.y) > self.epsilon:
+        if abs(position.get_y() - self.y) > self.epsilon:
             return False
-        if (position.get_z() - self.z) > self.epsilon:
+        if abs(position.get_z() - self.z) > self.epsilon:
             return False
         return True
     
